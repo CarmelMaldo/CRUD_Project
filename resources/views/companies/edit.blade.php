@@ -5,6 +5,23 @@
     <meta charset="UTF-8">
     <title>PROJECT CRUD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 
 <body>
@@ -12,11 +29,10 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h2>Edit Company</h2>
+                    <h2>Edit</h2>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('companies.index') }}" enctype="multipart/form-data">
-                        Back</a>
+                    <a class="btn btn-primary fas fa-arrow-left" href="{{ route('companies.index') }}" enctype="multipart/form-data"></a>
                 </div>
             </div>
         </div>
@@ -32,8 +48,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Company Name:</strong>
-                        <input type="text" name="name" value="{{ $company->name }}" class="form-control"
-                            placeholder="Company name">
+                        <input type="text" name="name" value="{{ $company->name }}" class="form-control" placeholder="Company name">
                         @error('name')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -42,8 +57,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Company Email:</strong>
-                        <input type="email" name="email" class="form-control" placeholder="Company Email"
-                            value="{{ $company->email }}">
+                        <input type="email" name="email" class="form-control" placeholder="Company Email" value="{{ $company->email }}">
                         @error('email')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -52,8 +66,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Company Address:</strong>
-                        <input type="text" name="address" value="{{ $company->address }}" class="form-control"
-                            placeholder="Company Address">
+                        <input type="text" name="address" value="{{ $company->address }}" class="form-control" placeholder="Company Address">
                         @error('address')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror

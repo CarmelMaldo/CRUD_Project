@@ -11,9 +11,21 @@ class CompanyController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-    public function index()
+    public function index(Request $request)
     {
-        $companies = Company::orderBy('id','desc')->paginate(5);
+        $search = $request->input('search');
+        
+        // Query the companies table based on the search input
+        $query = Company::query();
+
+        if ($search) {
+            $query->where('name', 'LIKE', '%'.$search.'%')
+                ->orWhere('email', 'LIKE', '%'.$search.'%')
+                ->orWhere('address', 'LIKE', '%'.$search.'%');
+        }
+
+        $companies = $query->paginate(10);
+
         return view('companies.index', compact('companies'));
     }
 
@@ -99,4 +111,5 @@ class CompanyController extends Controller
         $company->delete();
         return redirect()->route('companies.index')->with('success','Company has been deleted successfully');
     }
+
 }
