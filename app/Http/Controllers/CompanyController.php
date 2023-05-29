@@ -11,21 +11,10 @@ class CompanyController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
-    public function index(Request $request)
+    
+    public function index()
     {
-        $search = $request->input('search');
-        
-        // Query the companies table based on the search input
-        $query = Company::query();
-
-        if ($search) {
-            $query->where('name', 'LIKE', '%'.$search.'%')
-                ->orWhere('email', 'LIKE', '%'.$search.'%')
-                ->orWhere('address', 'LIKE', '%'.$search.'%');
-        }
-
-        $companies = $query->paginate(10);
-
+        $companies = Company::orderBy('id', 'desc')->paginate(5);
         return view('companies.index', compact('companies'));
     }
 
@@ -110,6 +99,18 @@ class CompanyController extends Controller
     {
         $company->delete();
         return redirect()->route('companies.index')->with('success','Company has been deleted successfully');
+    }
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+        $companies = Company::where('name', 'LIKE', "%$searchTerm%")
+        ->orWhere('email', 'LIKE', "%$searchTerm%")
+        ->orWhere('address', 'LIKE', "%$searchTerm%")
+        ->orderBy('id', 'desc')
+        ->paginate(5);
+
+    return view('companies.index', compact('companies'));
     }
 
 }
